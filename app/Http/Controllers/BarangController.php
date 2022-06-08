@@ -16,8 +16,9 @@ class BarangController extends Controller
     public function index()
     {
         $barang = $barang = DB::table('barang')->get(); // Mengambil semua isi tabel
-        $posts = Barang::orderBy('kode', 'asc')->paginate(6);
+        $post = Barang::orderBy('kode', 'asc')->paginate(2);
         return view('list.barang.index', compact('barang'));
+        // return view('list.barang.index', ['barang' => $barang,'paginate'=>$paginate]);
     }
 
     /**
@@ -46,7 +47,7 @@ class BarangController extends Controller
         ]);
 
         Barang::create($request->all());
-        return redirect()->route('list.barang.index')
+        return redirect()->route('barang.index')
         ->with('success', 'Barang Berhasil Ditambahkan');   
     }
 
@@ -59,7 +60,7 @@ class BarangController extends Controller
     public function show($kode)
     {
         $barang = Barang::find($kode);
-        return view('list.barang.detail', compact('barang'));
+        return view('barang.detail', compact('barang'));
     }
 
     /**
@@ -71,7 +72,7 @@ class BarangController extends Controller
     public function edit($kode)
     {
         $barang = DB::table('barang')->where('kode', $kode)->first();;
-        return view('list.barang.edit', compact('barang'));
+        return view('barang.edit', compact('barang'));
     }
 
     /**
@@ -92,7 +93,7 @@ class BarangController extends Controller
         
         Barang::find($kode)->update($request->all());
 
-        return redirect()->route('list.barang.index')
+        return redirect()->route('barang.index')
         ->with('success', 'Barang Berhasil Diupdate');
     }
 
@@ -105,7 +106,7 @@ class BarangController extends Controller
     public function destroy($kode)
     {
         Barang::find($kode)->delete();
-        return redirect()->route('list.barang.index')
+        return redirect()->route('barang.index')
         -> with('success', 'Barang Berhasil Dihapus');
     }
 }
