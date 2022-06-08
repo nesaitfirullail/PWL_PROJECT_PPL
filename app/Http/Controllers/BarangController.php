@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Http\Requests\StoreBarangRequest;
-use App\Http\Requests\UpdateBarangRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -15,7 +15,9 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $barang = $barang = DB::table('barang')->get(); // Mengambil semua isi tabel
+        $posts = Barang::orderBy('kode', 'asc')->paginate(6);
+        return view('list.barang.index', compact('barang'));
     }
 
     /**
@@ -25,62 +27,85 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('list.barang.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBarangRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBarangRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+            'harga' => 'required',
+            'stok' => 'required', 
+        ]);
+
+        Barang::create($request->all());
+        return redirect()->route('list.barang.index')
+        ->with('success', 'Barang Berhasil Ditambahkan');   
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Barang $barang)
+    public function show($kode)
     {
-        //
+        $barang = Barang::find($kode);
+        return view('list.barang.detail', compact('barang'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Barang $barang)
+    public function edit($kode)
     {
-        //
+        $barang = DB::table('barang')->where('kode', $kode)->first();;
+        return view('list.barang.edit', compact('barang'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBarangRequest  $request
-     * @param  \App\Models\Barang  $barang
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBarangRequest $request, Barang $barang)
+    public function update(Request $request, $kode)
     {
-        //
+        $request->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+            'harga' => 'required',
+            'stok' => 'required', 
+        ]);
+        
+        Barang::find($kode)->update($request->all());
+
+        return redirect()->route('list.barang.index')
+        ->with('success', 'Barang Berhasil Diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Barang  $barang
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barang $barang)
+    public function destroy($kode)
     {
-        //
+        Barang::find($kode)->delete();
+        return redirect()->route('list.barang.index')
+        -> with('success', 'Barang Berhasil Dihapus');
     }
 }

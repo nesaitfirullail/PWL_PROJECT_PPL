@@ -3,53 +3,59 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Barang</h1>
 @stop
 
 @section('content')
     <div class="row">
-        <div class="col-md-10 offset-md-1">
-            <div class="card">
-                <div class="card-header alert-success">
-                  Profile User 
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th> ID </th>
-                                <th> Nama Lengkap </th>
-                                <th> Email </th>
-                                <th> Alamat </th>
-                                <th> Photo </th>
-                                <th> Biodata </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($profile as $pro)
-                                <tr>
-                                    <td> {{ $pro->id }} </td>
-                                    <td> {{ $pro->name }} </td>
-                                    <td> {{ $pro->email }} </td>
-                                    <td> {{ strip_tags($pro->alamat)  }} </td>
-                                    <td> 
-                                        <img style="width:90px; height: 90px; "  src="{{ asset('images/' . $pro->photo ) }}" >
-                                    </td>
-                                    <td> {{ strip_tags($pro->biodata) }} </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    {{ $profile->links() }}
-                </div>
-              </div>
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mt-2">
+                <h2>Daftar Barang</h2>
+            </div>
+            <div class="float-right my-2">
+                <a class="btn btn-success" href="{{ route('barang.create') }}"> Input Barang</a>
+            </div>
         </div>
     </div>
-@stop
+ 
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+    @endif
+        
+    <table class="table table-bordered">
+        <tr>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th width="280px">Action</th>
+        </tr>
+        @foreach ($barang as $brg)
+        <tr>        
+            <td>{{ $brg ->kode }}</td>
+            <td>{{ $brg ->nama }}</td>
+            <td>{{ $brg ->harga }}</td>
+            <td>{{ $brg ->stok }}</td>
+            <td>
+                <form action="{{ route('barang.destroy',['barang'=>$brg->kode]) }}" method="POST">
+                
+                <a class="btn btn-info" href="{{ route('barang.show',$brg->kode) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('barang.edit',$brg->kode) }}">Edit</a>
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+@endsection
 
 @section('css')
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
