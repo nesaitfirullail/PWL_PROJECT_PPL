@@ -17,7 +17,7 @@ class SupplierController extends Controller
     {
         $supplier = $supplier = DB::table('supplier')->get(); // Mengambil semua isi tabel
         $post = Supplier::orderBy('kode', 'asc')->paginate(2);
-        return view('list.supplier.index', compact('supplier'));
+        return view('data.supplier.index', compact('supplier'));
     }
 
     /**
@@ -27,7 +27,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('list.supplier.create');
+        return view('data.supplier.create');
     }
 
     /**

@@ -24,6 +24,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('list/barang', BarangController::class);
+Route::resource('data/barang', BarangController::class);
 
-Route::resource('list/supplier', SupplierController::class);
+Route::resource('data/supplier', SupplierController::class);

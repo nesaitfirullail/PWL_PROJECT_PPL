@@ -24,23 +24,27 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{ route('barang.store') }}" id="myForm">
+                    <form method="post" action="{{ route('barang.store') }}" id="myForm" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                        <label for="kode">Kode</label> 
-                        <input type="text" name="kode" class="form-control" id="kode" aria-describedby="kode" > 
+                            <label for="kode">Kode</label> 
+                            <input type="text" name="kode" class="form-control" id="kode" aria-describedby="kode" > 
                         </div>
                         <div class="form-group">
-                        <label for="nama">Nama</label> 
-                        <input type="nama" name="nama" class="form-control" id="nama" aria-describedby="nama" > 
+                            <label for="nama">Nama</label> 
+                            <input type="nama" name="nama" class="form-control" id="nama" aria-describedby="nama" > 
                         </div>
                         <div class="form-group">
-                        <label for="harga">Harga</label> 
-                        <input type="harga" name="harga" class="form-control" id="harga" aria-describedby="harga" > 
+                            <label for="foto">Foto</label> 
+                            <input type="file" name="foto" class="form-control" id="foto" aria-describedby="foto" > 
                         </div>
                         <div class="form-group">
-                        <label for="stok">Stok</label> 
-                        <input type="stok" name="stok" class="form-control" id="stok" aria-describedby="stok" > 
+                            <label for="harga">Harga</label> 
+                            <input type="harga" name="harga" class="form-control" id="harga" aria-describedby="harga" > 
+                        </div>
+                        <div class="form-group">
+                            <label for="stok">Stok</label> 
+                            <input type="stok" name="stok" class="form-control" id="stok" aria-describedby="stok" > 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

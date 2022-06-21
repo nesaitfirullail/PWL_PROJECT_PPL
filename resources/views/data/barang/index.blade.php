@@ -28,6 +28,7 @@
         <tr>
             <th>Kode</th>
             <th>Nama</th>
+            <th>Foto</th>
             <th>Harga</th>
             <th>Stok</th>
             <th width="280px">Action</th>
@@ -36,6 +37,9 @@
         <tr>        
             <td>{{ $brg ->kode }}</td>
             <td>{{ $brg ->nama }}</td>
+            <td>
+                <img style="width:90px; height: 90px; "  src="{{ asset('images/' . $brg->foto ) }}" >    
+            </td>
             <td>{{ $brg ->harga }}</td>
             <td>{{ $brg ->stok }}</td>
             <td>

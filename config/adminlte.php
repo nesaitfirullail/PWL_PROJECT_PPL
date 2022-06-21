@@ -248,94 +248,40 @@ return [
         ],
 
         
-        ['header' => 'List'],
+        ['header' => 'Data'],
         [
             'text' => 'Barang',
-            'url'  => 'list/barang',
+            'url'  => 'data/barang',
             'icon' => 'fas fa-dice-d6',
         ],
         [
             'text' => 'Supplier',
-            'url'  => 'list/supplier',
+            'url'  => 'data/supplier',
             'icon' => 'fas fa-truck',
         ],
         [
             'text' => 'Karyawan',
-            'url'  => 'list/karyawan',
+            'url'  => 'data/karyawan',
             'icon' => 'fas fa-users',
         ],
         [
             'text' => 'Pelanggan',
-            'url'  => 'list/pelanggan',
+            'url'  => 'data/pelanggan',
             'icon' => 'fas fa-user-friends',
         ],
 
-
-        ['header' => 'account_settings'],
+        ['header' => 'Transaksi'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Penjualan',
+            'url'  => 'transaksi/barang',
+            'icon' => 'fas fa-dice-d6',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Pembelian',
+            'url'  => 'transaksi/supplier',
+            'icon' => 'fas fa-truck',
         ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        
     ],
 
     /*

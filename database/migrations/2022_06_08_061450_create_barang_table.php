@@ -17,6 +17,7 @@ class CreateBarangTable extends Migration
             $table->id('id_barang');
             $table->string('kode', 10)->index();
             $table->string('nama', 25)->index();
+            $table->string('foto');
             $table->unsignedBigInteger('harga');
             $table->unsignedBigInteger('stok');
             $table->timestamps();;

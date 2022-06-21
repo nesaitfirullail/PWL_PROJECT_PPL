@@ -17,8 +17,8 @@ class BarangController extends Controller
     {
         $barang = $barang = DB::table('barang')->get(); // Mengambil semua isi tabel
         $post = Barang::orderBy('kode', 'asc')->paginate(2);
-        return view('list.barang.index', compact('barang'));
-        // return view('list.barang.index', ['barang' => $barang,'paginate'=>$paginate]);
+        return view('data.barang.index', compact('barang'));
+        // return view('data.barang.index', ['barang' => $barang,'paginate'=>$paginate]);
     }
 
     /**
@@ -28,7 +28,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('list.barang.create');
+        return view('data.barang.create');
     }
 
     /**
@@ -39,14 +39,22 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'harga' => 'required',
-            'stok' => 'required', 
+        // if($request->file('image')) {
+        //     $image_name = $request->file('image')->store('images', 'public');
+        // }
+
+        $namaFile = time() . '.' . $request->foto->getClientOriginalExtension();
+        $request->foto->move(public_path('/images'), $namaFile);
+
+        Barang::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'foto' => $namaFile,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
         ]);
 
-        Barang::create($request->all());
+
         return redirect()->route('barang.index')
         ->with('success', 'Barang Berhasil Ditambahkan');   
     }
@@ -60,7 +68,7 @@ class BarangController extends Controller
     public function show($kode)
     {
         $barang = Barang::find($kode);
-        return view('barang.detail', compact('barang'));
+        return view('data.barang.detail', compact('barang'));
     }
 
     /**
@@ -71,8 +79,8 @@ class BarangController extends Controller
      */
     public function edit($kode)
     {
-        $barang = DB::table('barang')->where('kode', $kode)->first();;
-        return view('barang.edit', compact('barang'));
+        $barang = DB::table('barang')->where('kode', $kode)->first();
+        return view('data.barang.edit', compact('barang'));
     }
 
     /**
@@ -87,6 +95,7 @@ class BarangController extends Controller
         $request->validate([
             'kode' => 'required',
             'nama' => 'required',
+            'foto' => 'required',
             'harga' => 'required',
             'stok' => 'required', 
         ]);
