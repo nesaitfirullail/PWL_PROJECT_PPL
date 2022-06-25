@@ -3,17 +3,17 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Karyawan</h1>
+    <h1>Pelanggan</h1>
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mt-2">
-                <h2>Daftar Karyawan</h2>
+                <h2>Daftar Pelanggan</h2>
             </div>
             <div class="float-right my-2">
-                <a class="btn btn-success" href="{{ route('karyawan.create') }}"> Input Karyawan</a>
+                <a class="btn btn-success" href="{{ route('pelanggan.create') }}"> Input Pelanggan</a>
             </div>
         </div>
     </div>
@@ -32,17 +32,17 @@
             <th>Telepon</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($karyawan as $krw)
+        @foreach ($pelanggan as $plg)
         <tr>        
-            <td>{{ $krw ->kode }}</td>
-            <td>{{ $krw ->nama }}</td>
-            <td>{{ $krw ->alamat }}</td>
-            <td>{{ $krw ->telepon }}</td>
+            <td>{{ $plg ->kode }}</td>
+            <td>{{ $plg ->nama }}</td>
+            <td>{{ $plg ->alamat }}</td>
+            <td>{{ $plg ->telepon }}</td>
             <td>
-                <form action="{{ route('karyawan.destroy',['karyawan'=>$krw->kode]) }}" method="POST">
+                <form action="{{ route('pelanggan.destroy',['pelanggan'=>$plg->kode]) }}" method="POST">
                 
-                <a class="btn btn-info" href="{{ route('karyawan.show',$krw->kode) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('karyawan.edit',$krw->kode) }}">Edit</a>
+                <a class="btn btn-info" href="{{ route('pelanggan.show',$plg->kode) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('pelanggan.edit',$plg->kode) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>

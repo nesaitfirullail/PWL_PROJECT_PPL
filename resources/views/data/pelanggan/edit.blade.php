@@ -11,7 +11,7 @@
         <div class="row justify-content-center align-items-center">
             <div class="card" style="width: 24rem;">
                 <div class="card-header">
-                    Edit Karyawan
+                    Edit Pelanggan
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -24,24 +24,24 @@
                                 </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{ route('karyawan.update', $karyawan->kode) }}" id="myForm">
+                    <form method="post" action="{{ route('pelanggan.update', $pelanggan->kode) }}" id="myForm">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="kode">Kode</label> 
-                            <input type="text" name="kode" class="form-control" id="kode" value="{{ $karyawan->kode }}" aria-describedby="kode" > 
+                            <input type="text" name="kode" class="form-control" id="kode" value="{{ $pelanggan->kode }}" aria-describedby="kode" > 
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama</label> 
-                            <input type="text" name="nama" class="form-control" id="nama" value="{{ $karyawan->nama }}" aria-describedby="nama" > 
+                            <input type="text" name="nama" class="form-control" id="nama" value="{{ $pelanggan->nama }}" aria-describedby="nama" > 
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label> 
-                            <input type="alamat" name="alamat" class="form-control" id="alamat" value="{{ $karyawan->harga }}" aria-describedby="alamat" > 
+                            <input type="alamat" name="alamat" class="form-control" id="alamat" value="{{ $pelanggan->harga }}" aria-describedby="alamat" > 
                         </div>
                         <div class="form-group">
                             <label for="telepon">Telepon</label> 
-                            <input type="telepon" name="telepon" class="form-control" id="telepon" value="{{ $karyawan->stok }}" aria-describedby="telepon" > 
+                            <input type="telepon" name="telepon" class="form-control" id="telepon" value="{{ $pelanggan->stok }}" aria-describedby="telepon" > 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

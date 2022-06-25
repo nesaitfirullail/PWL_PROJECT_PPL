@@ -11,18 +11,19 @@
     <div class="row justify-content-center align-items-center">
         <div class="card" style="width: 24rem;">
             <div class="card-header">
-                Detail Barang
+                Detail Pelanggan
             </div>
             <div class="card-body">
+                
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b>Kode: </b>{{$barang->kode}}</li>
-                    <li class="list-group-item"><b>Nama: </b>{{$barang->nama}}</li>
-                    <li class="list-group-item"><b>Foto: </b> <img style="width:90px; height: 90px; "  src="{{ asset('images/' . $barang->foto ) }}" > </li>
-                    <li class="list-group-item"><b>Harga: </b>{{$barang->harga}}</li>
-                    <li class="list-group-item"><b>Stok: </b>{{$barang->stok}}</li>
+                    <li class="list-group-item"><b>Kode: </b>{{$pelanggan->kode}}</li>
+                    <li class="list-group-item"><b>Nama: </b>{{$pelanggan->nama}}</li>
+                    <li class="list-group-item"><b>Alamat: </b>{{$pelanggan->alamat}}</li>
+                    <li class="list-group-item"><b>Telepon: </b>{{$pelanggan->telepon}}</li>
                 </ul>
+                
             </div>
-            <a class="btn btn-success mt-3" href="{{ route('barang.index') }}">Kembali</a>
+            <a class="btn btn-success mt-3" href="{{ route('pelanggan.index') }}">Kembali</a>
         </div>
     </div>
 </div>

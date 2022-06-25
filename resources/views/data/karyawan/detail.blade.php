@@ -18,6 +18,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><b>Kode: </b>{{$karyawan->kode}}</li>
                     <li class="list-group-item"><b>Nama: </b>{{$karyawan->nama}}</li>
+                    <li class="list-group-item"><b>Foto: </b> <img style="width:90px; height: 90px; "  src="{{ asset('images/' . $karyawan->foto ) }}" > </li>
                     <li class="list-group-item"><b>Alamat: </b>{{$karyawan->alamat}}</li>
                     <li class="list-group-item"><b>Telepon: </b>{{$karyawan->telepon}}</li>
                 </ul>

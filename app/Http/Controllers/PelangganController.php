@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-class KaryawanController extends Controller
+class PelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $karyawan = $karyawan = DB::table('karyawan')->get(); // Mengambil semua isi tabel
-        $post = Karyawan::orderBy('kode', 'asc')->paginate(2);
-        return view('data.karyawan.index', compact('karyawan'));
+        $pelanggan = $pelanggan = DB::table('pelanggan')->get(); // Mengambil semua isi tabel
+        $post = Pelanggan::orderBy('kode', 'asc')->paginate(2);
+        return view('data.pelanggan.index', compact('pelanggan'));
     }
 
     /**
@@ -28,7 +27,7 @@ class KaryawanController extends Controller
      */
     public function create()
     {
-        return view('data.karyawan.create');
+        return view('data.pelanggan.create');
     }
 
     /**
@@ -39,19 +38,16 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $namaFile = time() . '.' . $request->foto->getClientOriginalExtension();
-        $request->foto->move(public_path('/images'), $namaFile);
-
-        Karyawan::create([
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-            'foto' => $namaFile,
-            'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
+        $request->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required', 
         ]);
 
-        return redirect()->route('karyawan.index')
-        ->with('success', 'Karyawan Berhasil Ditambahkan');
+        Pelanggan::create($request->all());
+        return redirect()->route('pelanggan.index')
+        ->with('success', 'Pelanggan Berhasil Ditambahkan');
     }
 
     /**
@@ -62,8 +58,8 @@ class KaryawanController extends Controller
      */
     public function show($kode)
     {
-        $karyawan = Karyawan::find($kode);
-        return view('data.karyawan.detail', compact('karyawan'));
+        $pelanggan = Pelanggan::find($kode);
+        return view('pelanggan.detail', compact('pelanggan'));
     }
 
     /**
@@ -74,8 +70,8 @@ class KaryawanController extends Controller
      */
     public function edit($kode)
     {
-        $karyawan = DB::table('karyawan')->where('kode', $kode)->first();;
-        return view('data.karyawan.edit', compact('karyawan'));
+        $pelanggan = DB::table('pelanggan')->where('kode', $kode)->first();;
+        return view('pelanggan.edit', compact('pelanggan'));
     }
 
     /**
@@ -90,15 +86,14 @@ class KaryawanController extends Controller
         $request->validate([
             'kode' => 'required',
             'nama' => 'required',
-            'nama' => 'required',
             'alamat' => 'required',
             'telepon' => 'required', 
         ]);
         
-        Karyawan::find($kode)->update($request->all());
+        Pelanggan::find($kode)->update($request->all());
 
-        return redirect()->route('karyawan.index')
-        ->with('success', 'Karyawan Berhasil Diupdate');
+        return redirect()->route('pelanggan.index')
+        ->with('success', 'Pelanggan Berhasil Diupdate');
     }
 
     /**
@@ -109,8 +104,8 @@ class KaryawanController extends Controller
      */
     public function destroy($kode)
     {
-        Karyawan::find($kode)->delete();
-        return redirect()->route('karyawan.index')
-        -> with('success', 'Karyawan Berhasil Dihapus');
+        Pelanggan::find($kode)->delete();
+        return redirect()->route('pelanggan.index')
+        -> with('success', 'Pelanggan Berhasil Dihapus');
     }
 }

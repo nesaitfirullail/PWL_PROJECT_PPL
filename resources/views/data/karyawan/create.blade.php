@@ -24,23 +24,27 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{ route('karyawan.store') }}" id="myForm">
+                    <form method="post" action="{{ route('karyawan.store') }}" id="myForm" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                        <label for="kode">Kode</label> 
-                        <input type="text" name="kode" class="form-control" id="kode" aria-describedby="kode" > 
+                            <label for="kode">Kode</label> 
+                            <input type="text" name="kode" class="form-control" id="kode" aria-describedby="kode" > 
                         </div>
                         <div class="form-group">
-                        <label for="nama">Nama</label> 
-                        <input type="nama" name="nama" class="form-control" id="nama" aria-describedby="nama" > 
+                            <label for="nama">Nama</label> 
+                            <input type="nama" name="nama" class="form-control" id="nama" aria-describedby="nama" > 
                         </div>
                         <div class="form-group">
-                        <label for="alamat">Alamat</label> 
-                        <input type="alamat" name="alamat" class="form-control" id="alamat" aria-describedby="alamat" > 
+                            <label for="foto">Foto</label> 
+                            <input type="file" name="foto" class="form-control" id="foto" aria-describedby="foto" > 
                         </div>
                         <div class="form-group">
-                        <label for="telepon">Telepon</label> 
-                        <input type="telepon" name="telepon" class="form-control" id="telepon" aria-describedby="telepon" > 
+                            <label for="alamat">Alamat</label> 
+                            <input type="alamat" name="alamat" class="form-control" id="alamat" aria-describedby="alamat" > 
+                        </div>
+                        <div class="form-group">
+                            <label for="telepon">Telepon</label> 
+                            <input type="telepon" name="telepon" class="form-control" id="telepon" aria-describedby="telepon" > 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
