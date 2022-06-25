@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('data/barang', BarangController::class);
 
 Route::resource('data/supplier', SupplierController::class);
+
+Route::resource('data/karyawan', KaryawanController::class);
+
+Route::resource('data/pelanggan', PelangganController::class);
