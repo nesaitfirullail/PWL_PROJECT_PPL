@@ -5,6 +5,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PembelianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +44,6 @@ Route::resource('transaksi/penjualan', PenjualanController::class);
 Route::get('data/transaksi/cetak_pdf', [PenjualanController::class , 'cetak_pdf'])->name('cetak_pdf');
 // Route::get('data/barang/cetak_pdf', [BarangController::class , 'cetak']);
 
+Route::resource('transaksi/pembelian', PembelianController::class);
+
+Route::get('data/transaksi/cetak_pdf', [PembelianController::class , 'cetak_pdf'])->name('cetak_pdf');
