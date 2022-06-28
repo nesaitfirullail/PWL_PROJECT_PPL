@@ -11,7 +11,7 @@ class Supplier extends Model
 
     protected $table = 'supplier';
 
-    protected $primaryKey = 'kode'; 
+    // protected $primaryKey = 'kode'; 
 
     protected $fillable = [
         'kode',

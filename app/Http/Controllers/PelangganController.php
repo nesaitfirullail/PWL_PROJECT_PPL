@@ -15,8 +15,8 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggan = $pelanggan = DB::table('pelanggan')->get(); // Mengambil semua isi tabel
-        $post = Pelanggan::orderBy('kode', 'asc')->paginate(2);
+        $pelanggan = DB::table('pelanggan')->get(); // Mengambil semua isi tabel
+        $pelanggan = Pelanggan::orderBy('id', 'asc')->paginate(2);
         return view('data.pelanggan.index', compact('pelanggan'));
     }
 
@@ -56,10 +56,10 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($kode)
+    public function show($id)
     {
-        $pelanggan = Pelanggan::find($kode);
-        return view('pelanggan.detail', compact('pelanggan'));
+        $pelanggan = Pelanggan::find($id);
+        return view('data.pelanggan.detail', compact('pelanggan'));
     }
 
     /**
@@ -68,10 +68,10 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($kode)
+    public function edit($id)
     {
-        $pelanggan = DB::table('pelanggan')->where('kode', $kode)->first();;
-        return view('pelanggan.edit', compact('pelanggan'));
+        $pelanggan = DB::table('pelanggan')->where('id', $id)->first();;
+        return view('data.pelanggan.edit', compact('pelanggan'));
     }
 
     /**
@@ -81,7 +81,7 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $kode)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'kode' => 'required',
@@ -89,8 +89,9 @@ class PelangganController extends Controller
             'alamat' => 'required',
             'telepon' => 'required', 
         ]);
-        
-        Pelanggan::find($kode)->update($request->all());
+
+        Pelanggan::find($id)->update($request->all());
+        // return response()->json($request->all());
 
         return redirect()->route('pelanggan.index')
         ->with('success', 'Pelanggan Berhasil Diupdate');
@@ -102,9 +103,9 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($kode)
+    public function destroy($id)
     {
-        Pelanggan::find($kode)->delete();
+        Pelanggan::find($id)->delete();
         return redirect()->route('pelanggan.index')
         -> with('success', 'Pelanggan Berhasil Dihapus');
     }

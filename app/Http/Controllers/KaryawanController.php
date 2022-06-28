@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 
 class KaryawanController extends Controller
 {
@@ -16,8 +16,8 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $karyawan = $karyawan = DB::table('karyawan')->get(); // Mengambil semua isi tabel
-        $post = Karyawan::orderBy('kode', 'asc')->paginate(2);
+        $karyawan = DB::table('karyawan')->get(); // Mengambil semua isi tabel
+        $karyawan = Karyawan::orderBy('id', 'asc')->paginate(2);
         return view('data.karyawan.index', compact('karyawan'));
     }
 
@@ -60,9 +60,9 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($kode)
+    public function show($id)
     {
-        $karyawan = Karyawan::find($kode);
+        $karyawan = Karyawan::find($id);
         return view('data.karyawan.detail', compact('karyawan'));
     }
 
@@ -72,9 +72,9 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($kode)
+    public function edit($id)
     {
-        $karyawan = DB::table('karyawan')->where('kode', $kode)->first();;
+        $karyawan = DB::table('karyawan')->where('id', $id)->first();;
         return view('data.karyawan.edit', compact('karyawan'));
     }
 
@@ -85,17 +85,24 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $kode)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'nama' => 'required',
-            'alamat' => 'required',
-            'telepon' => 'required', 
-        ]);
+        $karyawan = Karyawan::find($id);
+
+        $karyawan->kode = $request->kode;
+        $karyawan->nama = $request->nama;
+
+        if ($karyawan->foto && file_exists(storage_path('app/public/' . $karyawan->foto))) {
+            Storage::delete('public/' . $karyawan->foto);
+        }
+        $namaFile = time() . '.' . $request->foto->getClientOriginalExtension();
+        $request->foto->move(public_path('/images'), $namaFile);
+        $karyawan->foto = $namaFile;
+
+        $karyawan->alamat = $request->alamat;
+        $karyawan->telepon = $request->telepon;
         
-        Karyawan::find($kode)->update($request->all());
+        $karyawan->save();
 
         return redirect()->route('karyawan.index')
         ->with('success', 'Karyawan Berhasil Diupdate');
@@ -107,9 +114,9 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($kode)
+    public function destroy($id)
     {
-        Karyawan::find($kode)->delete();
+        Karyawan::find($id)->delete();
         return redirect()->route('karyawan.index')
         -> with('success', 'Karyawan Berhasil Dihapus');
     }

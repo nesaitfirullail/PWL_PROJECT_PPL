@@ -11,7 +11,7 @@ class Barang extends Model
 
     protected $table = 'barang';
 
-    protected $primaryKey = 'kode'; 
+    // protected $primaryKey = 'kode'; 
 
     protected $fillable = [
         'kode',

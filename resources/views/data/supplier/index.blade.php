@@ -39,10 +39,10 @@
             <td>{{ $spl ->alamat }}</td>
             <td>{{ $spl ->telepon }}</td>
             <td>
-                <form action="{{ route('supplier.destroy',['supplier'=>$spl->kode]) }}" method="POST">
+                <form action="{{ route('supplier.destroy',['supplier'=>$spl->id]) }}" method="POST">
                 
-                <a class="btn btn-info" href="{{ route('supplier.show',$spl->kode) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('supplier.edit',$spl->kode) }}">Edit</a>
+                <a class="btn btn-info" href="{{ route('supplier.show',$spl->id) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('supplier.edit',$spl->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -51,6 +51,9 @@
         </tr>
         @endforeach
     </table>
+    <div>
+        {{ $supplier->links() }}
+    </div>
 
     
 @endsection

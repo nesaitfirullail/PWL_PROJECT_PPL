@@ -11,7 +11,7 @@ class Pelanggan extends Model
 
     protected $table = 'pelanggan';
 
-    protected $primaryKey = 'kode'; 
+    // protected $primaryKey = 'kode'; 
 
     protected $fillable = [
         'kode',

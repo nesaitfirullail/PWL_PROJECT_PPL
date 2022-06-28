@@ -24,7 +24,7 @@
                                 </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{ route('supplier.update', $supplier->kode) }}" id="myForm">
+                    <form method="post" action="{{ route('supplier.update', $supplier->id) }}" id="myForm">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -37,11 +37,11 @@
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label> 
-                            <input type="alamat" name="alamat" class="form-control" id="alamat" value="{{ $supplier->harga }}" aria-describedby="alamat" > 
+                            <input type="alamat" name="alamat" class="form-control" id="alamat" value="{{ $supplier->alamat }}" aria-describedby="alamat" > 
                         </div>
                         <div class="form-group">
                             <label for="telepon">Telepon</label> 
-                            <input type="telepon" name="telepon" class="form-control" id="telepon" value="{{ $supplier->stok }}" aria-describedby="telepon" > 
+                            <input type="telepon" name="telepon" class="form-control" id="telepon" value="{{ $supplier->telepon }}" aria-describedby="telepon" > 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

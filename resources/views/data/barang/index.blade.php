@@ -13,7 +13,7 @@
                 <h2>Daftar Barang</h2>
             </div>
             <div class="float-right my-2">
-                <a class="btn btn-success" href="{{ route('barang.create') }}"> Input Barang</a>
+                <a class="btn btn-success" href="{{ route('barang.create') }}"> Input Barang </a>
             </div>
         </div>
     </div>
@@ -43,10 +43,10 @@
             <td>{{ $brg ->harga }}</td>
             <td>{{ $brg ->stok }}</td>
             <td>
-                <form action="{{ route('barang.destroy',['barang'=>$brg->kode]) }}" method="POST">
+                <form action="{{ route('barang.destroy',['barang'=>$brg->id]) }}" method="POST">
                 
-                <a class="btn btn-info" href="{{ route('barang.show',$brg->kode) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('barang.edit',$brg->kode) }}">Edit</a>
+                <a class="btn btn-info" href="{{ route('barang.show',$brg->id) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('barang.edit',$brg->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -55,6 +55,9 @@
         </tr>
         @endforeach
     </table>
+    <div>
+        {{ $barang->links() }}
+    </div>
 
     
 @endsection

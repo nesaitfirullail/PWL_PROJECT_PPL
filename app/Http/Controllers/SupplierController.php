@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use LDAP\Result;
 
 class SupplierController extends Controller
 {
@@ -15,8 +16,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $supplier = $supplier = DB::table('supplier')->get(); // Mengambil semua isi tabel
-        $post = Supplier::orderBy('kode', 'asc')->paginate(2);
+        $supplier = DB::table('supplier')->get(); // Mengambil semua isi tabel
+        $supplier = Supplier::orderBy('id', 'asc')->paginate(2);
         return view('data.supplier.index', compact('supplier'));
     }
 
@@ -56,10 +57,10 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($kode)
+    public function show($id)
     {
-        $supplier = Supplier::find($kode);
-        return view('supplier.detail', compact('supplier'));
+        $supplier = Supplier::find($id);
+        return view('data.supplier.detail', compact('supplier'));
     }
 
     /**
@@ -68,10 +69,10 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($kode)
+    public function edit($id)
     {
-        $supplier = DB::table('supplier')->where('kode', $kode)->first();;
-        return view('supplier.edit', compact('supplier'));
+        $supplier = DB::table('supplier')->where('id', $id)->first();;
+        return view('data.supplier.edit', compact('supplier'));
     }
 
     /**
@@ -81,7 +82,7 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $kode)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'kode' => 'required',
@@ -90,10 +91,12 @@ class SupplierController extends Controller
             'telepon' => 'required', 
         ]);
         
-        Supplier::find($kode)->update($request->all());
+        Supplier::find($id)->update($request->all());
 
         return redirect()->route('supplier.index')
         ->with('success', 'Supplier Berhasil Diupdate');
+
+        // return response()->json($request->all());
     }
 
     /**
@@ -102,9 +105,9 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($kode)
+    public function destroy($id)
     {
-        Supplier::find($kode)->delete();
+        Supplier::find($id)->delete();
         return redirect()->route('supplier.index')
         -> with('success', 'Supplier Berhasil Dihapus');
     }

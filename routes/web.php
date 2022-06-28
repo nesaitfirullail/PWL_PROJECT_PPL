@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PenjualanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +29,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('data/barang', BarangController::class);
 
+Route::get('data/barang/cetak_pdf', [BarangController::class , 'cetak_pdf'])->name('cetak_pdf');
+// Route::get('data/barang/cetak_pdf', [BarangController::class , 'cetak']);
+
 Route::resource('data/supplier', SupplierController::class);
 
 Route::resource('data/karyawan', KaryawanController::class);
 
 Route::resource('data/pelanggan', PelangganController::class);
+
+Route::resource('transaksi/penjualan', PenjualanController::class);
+
+Route::get('data/transaksi/cetak_pdf', [PenjualanController::class , 'cetak_pdf'])->name('cetak_pdf');
+// Route::get('data/barang/cetak_pdf', [BarangController::class , 'cetak']);
+

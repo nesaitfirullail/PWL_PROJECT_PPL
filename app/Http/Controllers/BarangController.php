@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use PDF;
+use Illuminate\Support\Collection;
 
 class BarangController extends Controller
 {
@@ -15,11 +18,12 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = $barang = DB::table('barang')->get(); // Mengambil semua isi tabel
-        $post = Barang::orderBy('kode', 'asc')->paginate(2);
+        $barang = DB::table('barang')->get(); // Mengambil semua isi tabel
+        $barang = Barang::orderBy('id', 'asc')->paginate(2);
         return view('data.barang.index', compact('barang'));
         // return view('data.barang.index', ['barang' => $barang,'paginate'=>$paginate]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -65,9 +69,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($kode)
+    public function show($id)
     {
-        $barang = Barang::find($kode);
+        $barang = Barang::find($id);
         return view('data.barang.detail', compact('barang'));
     }
 
@@ -77,9 +81,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($kode)
+    public function edit($id)
     {
-        $barang = DB::table('barang')->where('kode', $kode)->first();
+        $barang = DB::table('barang')->where('id', $id)->first();
         return view('data.barang.edit', compact('barang'));
     }
 
@@ -90,17 +94,24 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $kode)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'kode' => 'required',
-            'nama' => 'required',
-            'foto' => 'required',
-            'harga' => 'required',
-            'stok' => 'required', 
-        ]);
+        $barang = Barang::find($id);
+
+        $barang->kode = $request->kode;
+        $barang->nama = $request->nama;
+
+        if ($barang->foto && file_exists(storage_path('app/public/' . $barang->foto))) {
+            Storage::delete('public/' . $barang->foto);
+        }
+        $namaFile = time() . '.' . $request->foto->getClientOriginalExtension();
+        $request->foto->move(public_path('/images'), $namaFile);
+        $barang->foto = $namaFile;
+
+        $barang->harga = $request->harga;
+        $barang->stok = $request->stok;
         
-        Barang::find($kode)->update($request->all());
+        $barang->save();
 
         return redirect()->route('barang.index')
         ->with('success', 'Barang Berhasil Diupdate');
@@ -112,9 +123,9 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($kode)
+    public function destroy($id)
     {
-        Barang::find($kode)->delete();
+        Barang::find($id)->delete();
         return redirect()->route('barang.index')
         -> with('success', 'Barang Berhasil Dihapus');
     }

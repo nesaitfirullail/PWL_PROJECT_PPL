@@ -273,12 +273,12 @@ return [
         ['header' => 'Transaksi'],
         [
             'text' => 'Penjualan',
-            'url'  => 'transaksi/barang',
+            'url'  => 'transaksi/penjualan',
             'icon' => 'fas fa-dice-d6',
         ],
         [
             'text' => 'Pembelian',
-            'url'  => 'transaksi/supplier',
+            'url'  => 'transaksi/pembelian',
             'icon' => 'fas fa-truck',
         ],
         

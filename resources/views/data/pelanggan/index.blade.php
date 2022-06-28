@@ -39,10 +39,10 @@
             <td>{{ $plg ->alamat }}</td>
             <td>{{ $plg ->telepon }}</td>
             <td>
-                <form action="{{ route('pelanggan.destroy',['pelanggan'=>$plg->kode]) }}" method="POST">
+                <form action="{{ route('pelanggan.destroy',['pelanggan'=>$plg->id]) }}" method="POST">
                 
-                <a class="btn btn-info" href="{{ route('pelanggan.show',$plg->kode) }}">Show</a>
-                <a class="btn btn-primary" href="{{ route('pelanggan.edit',$plg->kode) }}">Edit</a>
+                <a class="btn btn-info" href="{{ route('pelanggan.show',$plg->id) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('pelanggan.edit',$plg->id) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -51,6 +51,9 @@
         </tr>
         @endforeach
     </table>
+    <div>
+        {{ $pelanggan->links() }}
+    </div>
 
     
 @endsection
